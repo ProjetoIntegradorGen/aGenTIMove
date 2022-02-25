@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.agentimove.aGenTIMove.model.ProdutoModel;
 import com.agentimove.aGenTIMove.repository.ProdutoRepository;
+import com.agentimove.aGenTIMove.util.Categoria;
+import com.agentimove.aGenTIMove.util.Equipamentos;
 
 @RestController
 @RequestMapping("/produtos")
@@ -59,4 +62,16 @@ public class ProdutoController {
 		repository.deleteById(id);
 	}
 
+	@GetMapping ("/pesquisa")
+	public ResponseEntity<List<ProdutoModel>> getByCategoria (@RequestParam (defaultValue = "YOGA") Categoria categoria) {
+		return ResponseEntity.ok(repository.findAllByCategoria(categoria));
+	}
+	
+	@GetMapping ("/pesquisas")
+	public ResponseEntity<List<ProdutoModel>> getByCategoriaAndEquipamentos(
+			@RequestParam (defaultValue = "YOGA") Categoria categoria,
+			@RequestParam (defaultValue = "SIM") Equipamentos equipamentos) {
+		return ResponseEntity.ok(repository.findAllByCategoriaAndEquipamentos(categoria, equipamentos));
+	}
+	
 }
