@@ -1,11 +1,16 @@
 package com.agentimove.aGenTIMove.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.agentimove.aGenTIMove.util.Categoria;
+import com.agentimove.aGenTIMove.util.Equipamentos;
 
 
 @Entity
@@ -25,11 +30,13 @@ public class ProdutoModel {
     @NotNull
     private float valor;
 
-    @NotNull
-    private String categoria;
 
-    @NotNull
-    private String equipamentos;
+
+	private @Enumerated(EnumType.STRING) Categoria categoria;
+
+
+
+	private @Enumerated(EnumType.STRING) Equipamentos equipamentos;
 
     private String equip_descricao;
 
@@ -85,5 +92,19 @@ public class ProdutoModel {
     public void setUrl_imagem(String url_imagem) {
         this.url_imagem = url_imagem;
     }
+    public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+    public Equipamentos getEquipamentos() {
+		return equipamentos;
+	}
+
+	public void setEquipamentos(Equipamentos equipamentos) {
+		this.equipamentos = equipamentos;
+	}
 
 }
