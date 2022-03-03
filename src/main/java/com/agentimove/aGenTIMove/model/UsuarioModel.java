@@ -1,10 +1,18 @@
 package com.agentimove.aGenTIMove.model;
 
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 
 @Entity
@@ -24,6 +32,10 @@ public class UsuarioModel {
     
     @NotNull
     private String senha;
+    
+    @OneToMany(mappedBy="usuario", cascade=CascadeType.REMOVE)
+    @JsonIgnoreProperties("usuario")
+    private List <ProdutoModel> produto;
 
     
     public Long getId() {
