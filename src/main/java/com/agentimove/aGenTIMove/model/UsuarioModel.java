@@ -68,5 +68,13 @@ public class UsuarioModel {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    } 
+    }
+
+	public List<ProdutoModel> getProduto() {
+		return produto;
+	}
+
+	public void setProduto(List<ProdutoModel> produto) {
+		this.produto = produto;
+	} 
 }
