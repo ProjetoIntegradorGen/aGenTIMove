@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -40,6 +41,14 @@ public class UsuarioController {
 	@GetMapping("/{id}")
 	public ResponseEntity<UsuarioModel> getById(@PathVariable long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+	}
+	
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<UsuarioModel> getByNome (@PathVariable("nome") String nome){
+		return repository.findByNome(nome).map(resp -> ResponseEntity.status(200).body(resp))
+				.orElseGet(() ->{
+					throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erro");
+					});
 	}
 
 	@PostMapping
