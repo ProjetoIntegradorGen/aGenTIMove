@@ -6,11 +6,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.agentimove.aGenTIMove.util.Categoria;
 import com.agentimove.aGenTIMove.util.Equipamentos;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_produto")
@@ -36,6 +38,10 @@ public class ProdutoModel {
 	private String equipDescricao;
 
 	private String urlImagem;
+
+	@ManyToOne
+	@JsonIgnoreProperties("produtos")
+	private UsuarioModel usuario;
 
 	public Long getId() {
 		return id;
@@ -100,5 +106,14 @@ public class ProdutoModel {
 	public void setUrlImagem(String urlImagem) {
 		this.urlImagem = urlImagem;
 	}
+	
+	public UsuarioModel getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioModel usuario) {
+		this.usuario = usuario;
+	}
+	
 
 }
