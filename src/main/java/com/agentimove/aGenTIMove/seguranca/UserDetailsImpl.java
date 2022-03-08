@@ -1,6 +1,7 @@
 package com.agentimove.aGenTIMove.seguranca;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.agentimove.aGenTIMove.model.UsuarioModel;
 
@@ -15,6 +16,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private String password;
 
+    private List<GrantedAuthority> authorities;
+
     public UserDetailsImpl(UsuarioModel user) {
         this.userName = user.getEmail();
         this.password = user.getSenha();
@@ -24,7 +27,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
