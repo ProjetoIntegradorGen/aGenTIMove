@@ -1,6 +1,7 @@
 package com.agentimove.aGenTIMove.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.agentimove.aGenTIMove.Service.UsuarioService;
+import com.agentimove.aGenTIMove.model.UserLoginModel;
 import com.agentimove.aGenTIMove.model.UsuarioModel;
 import com.agentimove.aGenTIMove.repository.UsuarioRepository;
+
 
 @RestController
 @RequestMapping("/usuario")
@@ -27,6 +31,8 @@ public class UsuarioController {
 
 	@Autowired
 	public UsuarioRepository repository;
+	@Autowired 
+	public UsuarioService usuarioService;
 
 	@GetMapping("/todos")
 	public ResponseEntity<List<UsuarioModel>> getAll() {
@@ -50,7 +56,19 @@ public class UsuarioController {
 					throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erro");
 					});
 	}
-
+	
+	@PostMapping ("/logar")
+	public ResponseEntity<UserLoginModel> Autentication (@RequestBody Optional<UserLoginModel> user){
+		return usuarioService.Logar(user).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+	}
+	
+	@PostMapping("/cadastrar")
+	public ResponseEntity<UsuarioModel> Post (@RequestBody UsuarioModel usuario){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(usuarioService.CadastrarUsuario(usuario));
+	}
+	
 	@PostMapping
 	public ResponseEntity<UsuarioModel> post(@RequestBody UsuarioModel usuario) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
