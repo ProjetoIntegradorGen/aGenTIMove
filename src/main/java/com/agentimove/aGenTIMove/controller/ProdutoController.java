@@ -34,7 +34,7 @@ public class ProdutoController {
 	public ResponseEntity<List<ProdutoModel>> getAll(){
 		List<ProdutoModel> list = repository.findAll();
 		if (list.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Erro,tente novamente.");	
+			return ResponseEntity.status(204).build();	
 		} else {
 			return ResponseEntity.ok(repository.findAll());
 		}	
