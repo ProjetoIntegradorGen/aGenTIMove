@@ -33,4 +33,36 @@ public class ComprasModel {
 	
 	private @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss") LocalDate data = LocalDate.now();
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public UsuarioModel getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioModel usuario) {
+		this.usuario = usuario;
+	}
+
+	public ProdutoModel getProduto() {
+		return produto;
+	}
+
+	public void setProduto(ProdutoModel produto) {
+		this.produto = produto;
+	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
 }

@@ -23,9 +23,9 @@ public class ComprasController {
 	return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
 	.orElse(ResponseEntity.notFound().build());
 	}
-	@GetMapping("/{usuario}")
-	public ResponseEntity<ComprasModel>getByUsuario(@PathVariable String usuario){
-		return repository.findAllByUsuarioContainingIgnoreCase(usuario).map(resp -> ResponseEntity.ok(resp))
-		.orElse(ResponseEntity.notFound().build());
-	}
+	// @GetMapping("/produtos/{produto}")
+	// public ResponseEntity<ComprasModel>getByProduto(@PathVariable String produto){
+	// 	return repository.findAllByProdutoContainingIgnoreCase(produto).map(resp -> ResponseEntity.ok(resp))
+	// 	.orElse(ResponseEntity.notFound().build());
+	// }
 }
