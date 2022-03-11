@@ -23,7 +23,6 @@ public class ComprasController {
 	public @Autowired ComprasRepository repository;
 	public @Autowired UsuarioRepository repositoryU;
 	public @Autowired ProdutoRepository repositoryP;
-
 	@GetMapping("/{id}")
 	public ResponseEntity<ComprasModel> getById(@PathVariable long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
