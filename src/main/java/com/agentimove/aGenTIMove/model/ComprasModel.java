@@ -31,6 +31,6 @@ public class ComprasModel {
 	@JoinColumn(name="id_produto")
 	ProdutoModel produto;
 	
-	private @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss") LocalDate obj = LocalDate.now();
+	private @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss") LocalDate data = LocalDate.now();
 	
 }
