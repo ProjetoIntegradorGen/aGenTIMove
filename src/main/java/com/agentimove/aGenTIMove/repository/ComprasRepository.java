@@ -11,7 +11,7 @@ public interface ComprasRepository extends JpaRepository<ComprasModel, Long> {
 	
 	public Optional<ComprasModel> findById (Long id);
 	
-	public Optional<ComprasModel> findByDate (LocalDate data);
+	// public Optional<ComprasModel> findByDate (LocalDate data);
 	
-	public Optional<ComprasModel> findAllByUsuarioContainingIgnoreCase (String usuario);
+	// public Optional<ComprasModel> findAllByProdutoContainingIgnoreCase (String produto);
 }
