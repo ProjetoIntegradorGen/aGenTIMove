@@ -1,5 +1,8 @@
 package com.agentimove.aGenTIMove.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -39,9 +43,9 @@ public class ProdutoModel {
 
 	private String urlImagem;
 
-	@ManyToOne
-	@JsonIgnoreProperties("produtos")
-	private UsuarioModel usuario;
+	@OneToMany(mappedBy="produto", cascade=CascadeType.REMOVE)
+	@JsonIgnoreProperties("produto")
+	private List<ComprasModel> compras;
 
 	public Long getId() {
 		return id;
@@ -106,14 +110,12 @@ public class ProdutoModel {
 	public void setUrlImagem(String urlImagem) {
 		this.urlImagem = urlImagem;
 	}
-	
-	public UsuarioModel getUsuario() {
-		return usuario;
+
+	public List<ComprasModel> getCompras() {
+		return compras;
 	}
 
-	public void setUsuario(UsuarioModel usuario) {
-		this.usuario = usuario;
+	public void setCompras(List<ComprasModel> compras) {
+		this.compras = compras;
 	}
-	
-
 }
