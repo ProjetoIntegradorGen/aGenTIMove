@@ -47,7 +47,6 @@ public class UsuarioController {
 			@ApiResponse(responseCode = "400", description = "Retorno sem Usuarios"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
-
 	@GetMapping("/todos")
 	public ResponseEntity<List<UsuarioModel>> getAll() {
 		List<UsuarioModel> list = repository.findAll();
@@ -64,7 +63,6 @@ public class UsuarioController {
 			@ApiResponse(responseCode = "400", description = "Usuario inexistente"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
-
 	@GetMapping("/{id}")
 	public ResponseEntity<UsuarioModel> getById(@PathVariable long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
@@ -75,7 +73,6 @@ public class UsuarioController {
 			@ApiResponse(responseCode = "200", description = "Retorna Lista"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
-
 	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<UsuarioModel>> getByNome (@PathVariable("nome") String nome){
 		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
@@ -88,7 +85,6 @@ public class UsuarioController {
             @ApiResponse(responseCode = "422", description = "Usuario já cadastrado"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
-
 	@PostMapping ("/logar")
 	public ResponseEntity<UserLoginModel> Autentication (@RequestBody Optional<UserLoginModel> user){
 		return usuarioService.Logar(user).map(resp -> ResponseEntity.ok(resp))
@@ -102,26 +98,29 @@ public class UsuarioController {
             @ApiResponse(responseCode = "422", description = "Usuario já cadastrado"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
-
 	@PostMapping("/cadastrar")
 	public ResponseEntity<UsuarioModel> Post (@RequestBody UsuarioModel usuario){
 		return usuarioService.CadastrarUsuario(usuario).map(resp -> ResponseEntity.status(201).body(resp))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 	
+	@Operation(summary = "Salvar Usuario")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "Usuario salvo com sucesso"),
+			@ApiResponse(responseCode = "400", description = "Erro ao salvar"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+	})
 	@PostMapping
 	public ResponseEntity<UsuarioModel> post(@RequestBody UsuarioModel usuario) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
 
 	}
-
 	@Operation(summary = "Atualiza Usuario existente")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Retorna Usuario Atualizado"),
 			@ApiResponse(responseCode = "400", description = "Erro na requisição"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
-
 	@PutMapping
 	public ResponseEntity<UsuarioModel> put(@RequestBody UsuarioModel usuario) {
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
@@ -133,12 +132,17 @@ public class UsuarioController {
 			@ApiResponse(responseCode = "400", description = "Id usuario inválido"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
-
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
 	}
 	
+	@Operation(summary = "Busca perfil por email")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "Retorna perfil"),
+			@ApiResponse(responseCode = "400", description = "Perfil invalido"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+	})
 	@GetMapping("/profile/{email}")
 	public ResponseEntity<UsuarioModel> getProfile(@PathVariable String email){
 		return repository.findByEmail(email).map(resp -> {
