@@ -52,7 +52,7 @@ public class UsuarioController {
 	public ResponseEntity<List<UsuarioModel>> getAll() {
 		List<UsuarioModel> list = repository.findAll();
 		if (list.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, " Usuario não encontrado");
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, " Usuario não encontrado");
 		} else {
 			return ResponseEntity.ok(repository.findAll());
 		}
@@ -72,17 +72,13 @@ public class UsuarioController {
 	
 	@Operation(summary = "Busca usuario por nome")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Retorna Usuario existente"),
-			@ApiResponse(responseCode = "400", description = "Usuario com nome inexistente"),
+			@ApiResponse(responseCode = "200", description = "Retorna Lista"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
 
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<UsuarioModel> getByNome (@PathVariable("nome") String nome){
-		return repository.findByNome(nome).map(resp -> ResponseEntity.status(200).body(resp))
-				.orElseGet(() ->{
-					throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erro");
-					});
+	public ResponseEntity<List<UsuarioModel>> getByNome (@PathVariable("nome") String nome){
+		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
 	}
 	
 	@Operation(summary = "Faz login do Usuario")
@@ -141,6 +137,13 @@ public class UsuarioController {
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
+	}
+	
+	@GetMapping("/profile/{email}")
+	public ResponseEntity<UsuarioModel> getProfile(@PathVariable String email){
+		return repository.findByEmail(email).map(resp -> {
+			return ResponseEntity.ok(resp);
+		}).orElse(ResponseEntity.notFound().build());
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.agentimove.aGenTIMove.model;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_compras")
@@ -25,13 +23,15 @@ public class ComprasModel {
 
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
+	@JsonIgnoreProperties("compras")
 	UsuarioModel usuario;
 	
 	@ManyToOne
 	@JoinColumn(name="id_produto")
+	@JsonIgnoreProperties("compras")
 	ProdutoModel produto;
 	
-	private @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss") LocalDate data = LocalDate.now();
+	private @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss") LocalDateTime data = LocalDateTime.now();
 	
 	public Long getId() {
 		return id;
@@ -57,11 +57,11 @@ public class ComprasModel {
 		this.produto = produto;
 	}
 
-	public LocalDate getData() {
+	public LocalDateTime getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
 
