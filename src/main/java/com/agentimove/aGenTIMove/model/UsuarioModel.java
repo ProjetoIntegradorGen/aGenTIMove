@@ -35,7 +35,7 @@ public class UsuarioModel {
     
     @OneToMany(mappedBy="usuario", cascade=CascadeType.REMOVE)
     @JsonIgnoreProperties("usuario")
-    private List <ProdutoModel> produto;
+    private List <ComprasModel> compras;
 
     
     public Long getId() {
@@ -70,11 +70,12 @@ public class UsuarioModel {
         this.senha = senha;
     }
 
-	public List<ProdutoModel> getProduto() {
-		return produto;
+	public List<ComprasModel> getCompras() {
+		return compras;
 	}
 
-	public void setProduto(List<ProdutoModel> produto) {
-		this.produto = produto;
-	} 
+	public void setCompras(List<ComprasModel> compras) {
+		this.compras = compras;
+	}
+
 }
