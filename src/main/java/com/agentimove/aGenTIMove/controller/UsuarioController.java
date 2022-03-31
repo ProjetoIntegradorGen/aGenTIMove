@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,8 +29,8 @@ import com.agentimove.aGenTIMove.repository.UsuarioRepository;
 
 
 @RestController
-@RequestMapping("/usuario")
-@CrossOrigin("*")
+@RequestMapping("/usuarios")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name = "Recursos do Usuario", description = "Administração de uso do usuário no sistema")
 public class UsuarioController {
 
@@ -143,7 +141,7 @@ public class UsuarioController {
 			@ApiResponse(responseCode = "400", description = "Perfil invalido"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
-	@GetMapping("/profile/{email}")
+	@GetMapping("email/{email}")
 	public ResponseEntity<UsuarioModel> getProfile(@PathVariable String email){
 		return repository.findByEmail(email).map(resp -> {
 			return ResponseEntity.ok(resp);

@@ -28,11 +28,14 @@ public class UsuarioModel {
     private String nome;
     
     @NotNull
+    private String usuario;
+    
+    @NotNull
     private String email;
     
     @NotNull
     private String senha;
-    
+
     @OneToMany(mappedBy="usuario", cascade=CascadeType.REMOVE)
     @JsonIgnoreProperties("usuario")
     private List <ComprasModel> compras;
@@ -52,6 +55,14 @@ public class UsuarioModel {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getEmail() {
