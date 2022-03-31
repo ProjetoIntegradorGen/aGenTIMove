@@ -24,12 +24,12 @@ public class ComprasModel {
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
 	@JsonIgnoreProperties("compras")
-	UsuarioModel usuario;
+	private UsuarioModel usuario;
 	
 	@ManyToOne
 	@JoinColumn(name="id_produto")
 	@JsonIgnoreProperties("compras")
-	ProdutoModel produto;
+	private ProdutoModel produto;
 	
 	private @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss") LocalDateTime data = LocalDateTime.now();
 	
