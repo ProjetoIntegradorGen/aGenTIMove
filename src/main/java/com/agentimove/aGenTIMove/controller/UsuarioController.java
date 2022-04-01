@@ -135,15 +135,15 @@ public class UsuarioController {
 		repository.deleteById(id);
 	}
 	
-	@Operation(summary = "Busca perfil por email")
+	@Operation(summary = "Busca perfil por usuario")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Retorna perfil"),
 			@ApiResponse(responseCode = "400", description = "Perfil invalido"),
             @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
 	})
-	@GetMapping("email/{email}")
-	public ResponseEntity<UsuarioModel> getProfile(@PathVariable String email){
-		return repository.findByEmail(email).map(resp -> {
+	@GetMapping("usuario/{usuario}")
+	public ResponseEntity<UsuarioModel> getProfile(@PathVariable String usuario){
+		return repository.findByUsuario(usuario).map(resp -> {
 			return ResponseEntity.ok(resp);
 		}).orElse(ResponseEntity.notFound().build());
 	}

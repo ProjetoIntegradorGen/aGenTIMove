@@ -6,11 +6,15 @@ public class UserLoginModel {
 	
 	private String nome;
 
-	private String email;
+	private String usuario;
 
 	private String senha;
 
 	private String token;
+
+	private String tipo;
+
+	private String foto;
 
 	public Long getId() {
 		return id;
@@ -28,12 +32,12 @@ public class UserLoginModel {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getSenha() {
@@ -50,6 +54,22 @@ public class UserLoginModel {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }
