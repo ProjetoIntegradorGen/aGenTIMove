@@ -21,7 +21,7 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 	
 	public Optional<UsuarioModel> CadastrarUsuario(UsuarioModel usuario) {
-		Optional<UsuarioModel> optional = repository.findByEmail(usuario.getEmail());
+		Optional<UsuarioModel> optional = repository.findByUsuario(usuario.getUsuario());
 		if (optional.isPresent()) {
 			return Optional.empty();
 		}
@@ -56,18 +56,21 @@ public class UsuarioService {
 	public Optional<UserLoginModel> Logar(Optional<UserLoginModel> user){
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
-		Optional <UsuarioModel> usuario = repository.findByEmail(user.get().getEmail());
+		Optional <UsuarioModel> usuario = repository.findByUsuario(user.get().getUsuario());
 		
 		if(usuario.isPresent()) {
 			if(encoder.matches(user.get().getSenha(), usuario.get().getSenha())) {
-				String auth = user.get().getEmail() + ":" + user.get().getSenha();
+				String auth = user.get().getUsuario() + ":" + user.get().getSenha();
 				byte[] encoderAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
 				String authHeader = "Basic " + new String(encoderAuth);
 				
 				user.get().setToken(authHeader);
+				user.get().setId(usuario.get().getId());
 				user.get().setNome(usuario.get().getNome());
-				user.get().setEmail(usuario.get().getEmail());
+				user.get().setUsuario(usuario.get().getUsuario());
 				user.get().setSenha(usuario.get().getSenha());
+				user.get().setTipo(usuario.get().getTipo());
+				user.get().setFoto(usuario.get().getFoto());
 				
 				return user;
 			}
