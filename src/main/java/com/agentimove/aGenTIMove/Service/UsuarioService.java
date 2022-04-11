@@ -37,7 +37,7 @@ public class UsuarioService {
 
 		if (repository.findById(usuario.getId()).isPresent()) {
 
-			Optional<UsuarioModel> buscaUsuario = repository.findByEmail(usuario.getUsuario());
+			Optional<UsuarioModel> buscaUsuario = repository.findByUsuario(usuario.getUsuario());
 
 			if (buscaUsuario.isPresent()) {
 				if (buscaUsuario.get().getId() != usuario.getId())
