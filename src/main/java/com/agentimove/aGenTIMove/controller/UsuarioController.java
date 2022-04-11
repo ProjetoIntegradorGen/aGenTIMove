@@ -121,7 +121,9 @@ public class UsuarioController {
 	})
 	@PutMapping
 	public ResponseEntity<UsuarioModel> put(@RequestBody UsuarioModel usuario) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
+		return usuarioService.atualizarUsuario(usuario)
+        .map(resp -> ResponseEntity.status(HttpStatus.OK).body(resp))
+        .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 
 	@Operation(summary = "Deleta Usuario existente por id")
